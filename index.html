@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <input type="text" id="test">
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+<script src="/maskMoney.js"></script>
+<script>
+    $('#test').maskMoney();
+    // console.log('01234567'.slice(3, -3));
+
+    // $('#test').on('keyup', function(event){
+    //     // console.log(integerPart);
+    //     // return base(event, $(this));
+    //     // return numberOnly(event);
+    //     // var val = $(this).val();
+    //     // console.log(val.substr(0,1));
+    //     // var val = $(this).val();
+    //     // // console.log(val.match(/.{1,3}/g));
+    //     // return chunkSubstr(val,3);
+
+    //     // console.log('0123456'.slice(4, -3));
+
+    //     let CallmyFormat = new myFormat(event, $(this),",");
+    //     CallmyFormat.base();
+    //     // console.log(CallmyFormat.base());
+    // })
+
+    // function buildIntegerPart(integerPart, thousands) {
+    //     integerPart = integerPart.replace(/^0*/g, "");
+    //     integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousands);
+
+    //     return integerPart;
+    // }
+
+    // function numberOnly(evt){
+    //         var charCode = (evt.which) ? evt.which : evt.keyCode
+    //         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    //             return false;
+    //         }
+
+    //         return true;
+    //     }
+
+    class myFormat {
+
+        constructor(event, elementCall,thousands) {
+            this.event = event
+            this.elementCall = elementCall
+            this.thousands = thousands
+        }
+
+        base() {
+            // if (this.numberOnly(this.event)){
+            //     console.log(this.elementCall.val())
+            //     var setIntegerPart = this.buildIntegerPart(this.elementCall.val(),this.thousands)
+            //     this.elementCall.val(setIntegerPart)
+            //     return false
+            // }
+            // return false;
+
+            // const numberPattern = /\d+/g;
+            // const integerPart = this.elementCall.val()
+            // let cetPattern = integerPart.match(numberPattern);
+            // console.log(cetPattern);
+
+            let setNewVal = this.buildIntegerPart(this.elementCall.val(),",")
+            this.elementCall.val(setNewVal)
+        }
+
+        parseCurrency() {
+
+        }
+
+        numberOnly(evt){
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        buildIntegerPart(integerPart, thousands) {
+            const numberPattern = /\d+/g;
+            let cetPattern = integerPart.match(numberPattern)
+            if (cetPattern != null) {
+                integerPart = integerPart.split(thousands).join('');
+                integerPart = integerPart.match(numberPattern).join('');
+                integerPart = integerPart.replace(/^0*/g, "");
+                integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousands);
+                return integerPart;
+            } else {
+                return "";
+            }
+
+            
+        }
+    }
+
+    
+    
+</script>
+
+</html>
